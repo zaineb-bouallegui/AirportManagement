@@ -12,7 +12,7 @@ pipeline {
         stage('Build') {
             steps {
                 // Étape pour construire votre projet .NET
-                bat 'dotnet build' // Exemple de commande de construction
+                sh 'dotnet build' // Exemple de commande de construction
             }
         }
 
