@@ -1,35 +1,32 @@
 pipeline {
-    agent any // L'agent spécifie où le pipeline sera exécuté (dans ce cas, n'importe quel agent disponible).
+    agent any // Spécifie l'agent sur lequel le pipeline sera exécuté (n'importe quel agent disponible).
 
     stages {
         stage('Checkout') {
             steps {
                 // Étape pour récupérer le code source du référentiel Git
-                script {
-                    git branch: 'main', // Branche Git à vérifier
-                        url: 'https://github.com/zaineb-bouallegui/AirportManagement' // URL du référentiel Git
-                }
+                checkout scm
             }
         }
 
         stage('Build') {
             steps {
-                // Étape pour construire votre application (par exemple, compilation, assemblage)
-                sh 'npm install' // Exemple d'instruction de construction
+                // Étape pour construire votre projet .NET
+                bat 'dotnet build' // Exemple de commande de construction
             }
         }
 
         stage('Test') {
             steps {
-                // Étape pour exécuter des tests automatisés
-                sh 'npm test' // Exemple d'instruction de test
+                // Étape pour exécuter des tests sur votre projet .NET
+                bat 'dotnet test' // Exemple de commande de test
             }
         }
 
-        stage('Deploy') {
+        stage('Publish') {
             steps {
-                // Étape pour déployer votre application (par exemple, sur un serveur)
-                sh 'npm deploy' // Exemple d'instruction de déploiement
+                // Étape pour publier votre projet .NET (par exemple, création d'un package)
+                bat 'dotnet publish' // Exemple de commande de publication
             }
         }
     }
